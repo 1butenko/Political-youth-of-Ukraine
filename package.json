@@ -1,5 +1,5 @@
 {
-  "name": "magical-moon",
+  "name": "Political-youth-of-Ukraine",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -9,6 +9,9 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.9.0"
+    "@tailwindcss/vite": "^4.1.8",
+    "astro": "^5.9.0",
+    "firebase": "^11.9.0",
+    "tailwindcss": "^4.1.8"
   }
 }
