@@ -1,1 +1,204 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: 'e-Ukraine';
+  src: url('/public/fonts/e-Ukraine/e-UkraineHead-Thin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'e-Ukraine';
+  src: url('/public/fonts/e-Ukraine/e-UkraineHead-UltraLight.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'e-Ukraine';
+  src: url('/public/fonts/e-Ukraine/e-UkraineHead-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'e-Ukraine';
+  src: url('/public/fonts/e-Ukraine/e-UkraineHead-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'e-Ukraine';
+  src: url('/public/fonts/e-Ukraine/e-UkraineHead-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'e-Ukraine';
+  src: url('/public/fonts/e-Ukraine/e-UkraineHead-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'e-Ukraine';
+  src: url('/public/fonts/e-Ukraine/e-UkraineHead-LOGO.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fixel';
+  src: url('/public/fonts/Fixel/FixelDisplay-Thin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Fixel';
+  src: url('/public/fonts/Fixel/FixelDisplay-ThinItalic.otf') format('opentype');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fixel';
+  src: url('/public/fonts/Fixel/FixelDisplay-ExtraLight.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Fixel';
+  src: url('/public/fonts/Fixel/FixelDisplay-ExtraLightItalic.otf') format('opentype');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fixel';
+  src: url('/public/fonts/Fixel/FixelDisplay-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Fixel';
+  src: url('/public/fonts/Fixel/FixelDisplay-LightItalic.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fixel';
+  src: url('/public/fonts/Fixel/FixelDisplay-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Fixel';
+  src: url('/public/fonts/Fixel/FixelDisplay-RegularItalic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fixel';
+  src: url('/public/fonts/Fixel/FixelDisplay-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Fixel';
+  src: url('/public/fonts/Fixel/FixelDisplay-MediumItalic.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fixel';
+  src: url('/public/fonts/Fixel/FixelDisplay-SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Fixel';
+  src: url('/public/fonts/Fixel/FixelDisplay-SemiBoldItalic.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fixel';
+  src: url('/public/fonts/Fixel/FixelDisplay-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Fixel';
+  src: url('/public/fonts/Fixel/FixelDisplay-BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fixel';
+  src: url('/public/fonts/Fixel/FixelDisplay-ExtraBold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Fixel';
+  src: url('/public/fonts/Fixel/FixelDisplay-ExtraBoldItalic.otf') format('opentype');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fixel';
+  src: url('/public/fonts/Fixel/FixelDisplay-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Fixel';
+  src: url('/public/fonts/Fixel/FixelDisplay-BlackItalic.otf') format('opentype');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+
+@theme {
+  --font-eukraine: 'e-Ukraine', 'sans-serif';
+  --font-fixel: 'Fixel', 'sans-serif';
+}
+
+@theme {
+  --color-light-ash: #F8F8F7;
+  --color-dusty-teal: #779EA5;
+  --color-deep-forest: #2B4546;
+}
