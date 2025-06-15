@@ -1,0 +1,78 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/lenis@1.3.4/dist/lenis.css"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro Basics</title>
+  </head>
+  <body class="bg-frost-gray">
+    <div>
+      <div class="flex items-center justify-between h-screen">
+        <div class="h-full w-1/2 py-4 pl-4">
+          <div class="h-full flex items-center bg-dusty-teal rounded-xl">
+            <div
+              class="text-[144px] font-eukraine font-black leading-tight text-deep-forest ml-4"
+            >
+              <div>Паблішер</div>
+              <div>Центр</div>
+              <div>ПМУ</div>
+            </div>
+          </div>
+        </div>
+        <div class="w-1/2 flex flex-col">
+          <div
+            class="text-center text-4xl font-fixel font-bold text-deep-forest"
+          >
+            Вхід
+          </div>
+          <div class="">
+            <form
+              action="/api/auth/signin"
+              method="post"
+              class="flex flex-col mx-36 text-xl my-8"
+            >
+              <input
+                type="email"
+                name="email"
+                id="email"
+                class="bg-light-ash py-4 font-fixel font-medium rounded-full pl-6 text-deep-forest placeholder:text-dusty-teal placeholder:text-base focus:outline-none cursor-text"
+                placeholder="Введіть адресу електроної пошти"
+              />
+              <input
+                type="password"
+                name="password"
+                id="password"
+                class="mt-4 bg-light-ash py-4 font-fixel font-medium rounded-full pl-6 text-deep-forest placeholder:text-dusty-teal placeholder:text-base focus:outline-none cursor-text"
+                placeholder="Введіть пароль"
+              />
+              <button
+                type="submit"
+                class="mt-8 bg-dusty-teal text-light-ash text-xl py-4 rounded-xl font-sans font-medium cursor-pointer hover:bg-[#658C93] transition-colors duration-200 shadow-md"
+                >Вхід</button
+              >
+            </form>
+          </div>
+          <div class="text-center font-fixel">Або</div>
+
+          <button
+            id="google"
+            class="flex items-center justify-center gap-3 mx-36 mt-8 bg-[#262626] text-light-ash text-lg py-4 px-6 rounded-2xl font-sans font-medium hover:bg-[#1f1f1f] transition-colors duration-200 cursor-pointer"
+          >
+            <Icon name="google" class="w-6 h-6" />
+            Вхід через Google
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

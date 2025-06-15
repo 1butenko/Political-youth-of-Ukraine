@@ -1,0 +1,49 @@
+---
+export const prerender = false;
+
+import { app } from "../firebase/server";
+import { getAuth } from "firebase-admin/auth";
+import { getFirestore } from "firebase-admin/firestore";
+
+const auth = getAuth(app);
+const db = getFirestore();
+
+if (!Astro.cookies.has("__session")) {
+  return Astro.redirect("/signin");
+}
+
+try {
+  const sessionCookie = Astro.cookies.get("__session")!.value;
+  const decodedToken = await auth.verifySessionCookie(sessionCookie, true);
+  const uid = decodedToken.uid;
+
+  const userRef = db.collection("users").doc(uid);
+  const userSnap = await userRef.get();
+
+  if (!userSnap.exists) {
+    return Astro.redirect("/publisher");
+  }
+
+  const userData = userSnap.data();
+  if (!userData || userData.firstLogin !== true) {
+    return Astro.redirect("/publisher");
+  }
+} catch (err) {
+  console.error("Session validation error:", err);
+  return Astro.redirect("/signin");
+}
+---
+
+<h1>Your Info</h1>
+<form method="post" action="/api/users">
+  <label for="firstName">First Name</label>
+  <input type="text" id="firstName" name="firstName" required />
+
+  <label for="secondName">Second Name</label>
+  <input type="text" id="secondName" name="secondName" required />
+
+  <label for="bio">Bio</label>
+  <input type="text" id="bio" name="bio" required />
+
+  <button type="submit">Edit Info</button>
+</form>

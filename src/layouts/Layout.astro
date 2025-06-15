@@ -1,22 +1,22 @@
+---
+import Navbar from '../components/Navbar/Navbar.astro'
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="stylesheet" href="https://unpkg.com/lenis@1.3.4/dist/lenis.css">
 		<meta name="generator" content={Astro.generator} />
+		<script type="module" src="/src/scripts/lenis.js"></script>
 		<title>Astro Basics</title>
 	</head>
-	<body>
-		<slot />
+	<body class="bg-frost-gray">
+		<div>
+			<Navbar />
+			<slot />
+		</div>
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

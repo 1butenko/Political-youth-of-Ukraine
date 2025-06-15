@@ -1,0 +1,45 @@
+---
+import { Icon } from "astro-icon/components";
+import Background from "../../assets/background.mp4";
+---
+
+<section
+  class="relative m-4 overflow-hidden rounded-xl flex items-center"
+  style="height: calc(100vh - 2rem);"
+  aria-label="Hero section with video background"
+>
+  <video
+    class="absolute inset-0 w-full h-full object-cover"
+    autoplay
+    muted
+    loop
+    playsinline
+  >
+    <source src={Background} type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <div class="absolute inset-0 bg-black/50 z-0"></div>
+
+  <div class="relative z-10 text-white px-6 sm:px-12 md:px-24 text-left">
+    <div class="mb-6">
+      <h1 class="whitespace-nowrap text-[80px] font-eukraine font-black text-frost-gray">
+        Патріотична молодь України
+      </h1>
+      <h2 class="text-2xl font-fixel font-medium ml-1 mt-2 text-frost-gray">
+        Ми створили цей проєкт для підвищення рівня патріотичності серед української молоді
+      </h2>
+    </div>
+
+    <div
+      class="w-fit rounded-full mt-12 flex items-center gap-12 bg-dusty-teal py-2 pr-4 pl-8 cursor-pointer transition hover:bg-opacity-90"
+    >
+      <span class="font-fixel font-medium text-2xl text-deep-forest">
+        Приєднатися
+      </span>
+      <div class="p-2 bg-frost-gray rounded-full">
+        <Icon name="arrow-up" class="rotate-45 w-8 h-8 text-deep-forest" />
+      </div>
+    </div>
+  </div>
+</section>

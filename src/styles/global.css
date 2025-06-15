@@ -198,7 +198,9 @@
 }
 
 @theme {
+  --color-frost-gray: #DCE4E7;
   --color-light-ash: #F8F8F7;
   --color-dusty-teal: #779EA5;
   --color-deep-forest: #2B4546;
+  --color-line-gray: #EEEEEC;
 }

@@ -1,0 +1,52 @@
+---
+import Profile from "../../assets/avatar.jpg";
+import { app } from "../../firebase/server";
+import { getFirestore } from "firebase-admin/firestore";
+import { getAuth } from "firebase-admin/auth";
+
+interface User {
+  fname: string;
+  sname: string;
+  bio: string;
+}
+
+let userData: User | null = null;
+
+const sessionCookieObj = Astro.cookies.get("__session");
+
+if (!sessionCookieObj) {
+  throw Astro.redirect("/signin");
+}
+
+const sessionCookie = sessionCookieObj.value;
+
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+try {
+  const decodedToken = await (async () => {
+    return await auth.verifySessionCookie(sessionCookie, true);
+  })();
+
+  const uid = decodedToken.uid;
+  const userRef = db.collection("users").doc(uid);
+  const userSnap = await userRef.get();
+
+  userData = userSnap.data() as User;
+} catch (error) {
+  console.error("Session verification failed:", error);
+  throw Astro.redirect("/signin");
+}
+---
+
+{userData && (
+  <div
+    class="bg-dusty-teal rounded-tl-2xl rounded-tr-2xl -mx-4 px-4 py-4 flex items-center gap-4 cursor-pointer"
+  >
+    <img src={Profile.src} class="w-12 h-12 rounded-lg" alt="User avatar" />
+    <div class="font-fixel text-deep-forest">
+      <div class="text-base font-semibold">{userData.fname + ' ' + userData.sname}</div>
+      <div class="text-sm font-medium">{userData.bio}</div>
+    </div>
+  </div>
+)}

@@ -1,0 +1,13 @@
+---
+import { Icon } from "astro-icon/components";
+
+const {
+    placeholder,
+    icon,
+} = Astro.props;
+---
+
+<div class="mb-4 flex gap-4 items-center cursor-pointer">
+    <Icon name={icon} class="w-4 h-4 text-dusty-teal"/>
+    <dic class="font-fixel font-medium text-[15px] text-dusty-teal">{placeholder}</div>
+</div>

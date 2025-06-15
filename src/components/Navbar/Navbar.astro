@@ -1,0 +1,22 @@
+---
+import { Icon } from "astro-icon/components"
+
+import NavItem from "./NavItem.astro"
+---
+
+<header class="mt-4">
+    <div class="fixed z-50 w-full py-8 px-24 flex justify-between items-center">
+        <span class="font-eukraine font-bold text-3xl text-frost-gray cursor-pointer">ПМУ</span>
+        <nav class="flex gap-14">
+            <NavItem placeholder="Про нас" href="#" />
+            <NavItem placeholder="Статті" href="#" />
+            <NavItem placeholder="Поезія" href="#" />
+            <NavItem placeholder="Контакти" href="#" />
+        </nav>
+        <div class="flex gap-4">
+            <div class="bg-frost-gray rounded-full cursor-pointer"><Icon name="tiktok" class="w-6 h-6 m-2 text-deep-forest"/></div>
+            <div class="bg-frost-gray rounded-full cursor-pointer"><Icon name="youtube" class="w-6 h-6 m-2 text-deep-forest"/></div>
+            <div class="bg-frost-gray rounded-full cursor-pointer"><Icon name="instagram" class="w-6 h-6 m-2 text-deep-forest"/></div>
+        </div>
+    </div>
+</header>

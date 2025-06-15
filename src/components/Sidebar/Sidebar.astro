@@ -1,0 +1,42 @@
+---
+import { Icon } from "astro-icon/components";
+
+import SidebarItem from "./SidebarItem.astro";
+import SidebarArticle from "./SidebarArticle.astro";
+import SidebarUserInfo from "./SidebarUserInfo.astro";
+
+import Logo from "../../assets/logo.svg";
+---
+
+<aside class="w-72 min-h-screen bg-light-ash px-4 pt-8 flex flex-col justify-between border-r border-line-gray">
+  <div>
+    <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center gap-4 cursor-pointer">
+        <img src={Logo.src} alt="Лого" class="w-12 h-12" />
+        <div class="flex flex-col text-deep-forest font-eukraine text-xs font-semibold">
+          <span>Патріотична</span>
+          <span>молодь</span>
+          <span>України</span>
+        </div>
+      </div>
+      <Icon name="edit" class="w-5 h-5 text-deep-forest cursor-pointer" />
+    </div>
+
+    <hr class="border-t border-line-gray mb-4" />
+
+    <nav class="space-y-2 mb-4 px-2">
+      <SidebarItem placeholder="Пошук" icon="search" />
+      <SidebarItem placeholder="Стрічка" icon="house" />
+      <SidebarItem placeholder="Оновлення" icon="inbox" />
+    </nav>
+
+    <hr class="border-t border-line-gray mb-4" />
+
+    <div>
+      <h2 class="text-xs font-fixel font-light text-dusty-teal mb-4">Мої статті</h2>
+      <SidebarArticle title="Новий законопроєкт" />
+    </div>
+  </div>
+  <SidebarUserInfo></SidebarUserInfo>
+</div>
+</aside>
