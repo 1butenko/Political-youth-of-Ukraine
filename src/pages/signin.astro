@@ -13,7 +13,7 @@ if (Astro.cookies.has("__session")) {
   const decodedCookie = await auth.verifySessionCookie(sessionCookie);
   const uid = decodedCookie.uid;
   if (decodedCookie) {
-    return Astro.redirect("/publisher/");
+    return Astro.redirect("/");
   }
 }
 ---

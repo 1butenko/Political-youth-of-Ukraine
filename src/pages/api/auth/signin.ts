@@ -51,5 +51,5 @@ export const GET: APIRoute = async ({ request, cookies, redirect }) => {
     maxAge: fiveDays / 1000,
   });
 
-  return redirect(firstLogin ? "/onboarding/" : "/publisher");
+  return redirect(firstLogin ? "/onboarding" : "/publisher");
 };

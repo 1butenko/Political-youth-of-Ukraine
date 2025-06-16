@@ -38,7 +38,7 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
       { merge: true }
     );
 
-    return redirect(`/publisher/`);
+    return redirect(`/publisher`);
   } catch (err) {
     console.error("User form submission error:", err);
     return new Response("Unauthorized or Firebase error", { status: 401 });
