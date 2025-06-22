@@ -6,6 +6,8 @@ import SidebarArticle from "./SidebarArticle.astro";
 import SidebarUserInfo from "./SidebarUserInfo.astro";
 
 import Logo from "../../assets/logo.svg";
+
+const { userData } = Astro.props
 ---
 
 <aside class="w-72 min-h-screen bg-light-ash px-4 pt-8 flex flex-col justify-between border-r border-line-gray">
@@ -37,6 +39,6 @@ import Logo from "../../assets/logo.svg";
       <SidebarArticle title="Новий законопроєкт" />
     </div>
   </div>
-  <SidebarUserInfo></SidebarUserInfo>
+  <SidebarUserInfo userData={userData}></SidebarUserInfo>
 </div>
 </aside>

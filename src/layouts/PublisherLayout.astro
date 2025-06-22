@@ -1,5 +1,41 @@
 ---
 import Sidebar from "../components/Sidebar/Sidebar.astro";
+import Editor from "../components/Editor/Editor";
+
+import { app } from "../firebase/server";
+import { getFirestore } from "firebase-admin/firestore";
+import { getAuth } from "firebase-admin/auth";
+
+interface User {
+  fname: string;
+  sname: string;
+  bio: string;
+}
+
+let userData: User | null = null;
+
+const sessionCookieObj = Astro.cookies.get("__session");
+
+if (!sessionCookieObj) {
+  throw Astro.redirect("/signin");
+}
+
+const sessionCookie = sessionCookieObj.value;
+
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+try {
+  const decodedToken = await auth.verifySessionCookie(sessionCookie, true);
+  const uid = decodedToken.uid;
+  const userRef = db.collection("users").doc(uid);
+  const userSnap = await userRef.get();
+
+  userData = userSnap.data() as User;
+} catch (error) {
+  console.error("Session verification failed:", error);
+  throw Astro.redirect("/signin");
+}
 ---
 
 <!doctype html>
@@ -9,13 +45,15 @@ import Sidebar from "../components/Sidebar/Sidebar.astro";
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="../assets/logo.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
+    <title>ПМУ | Паблішер центр</title>
   </head>
   <body>
     <div class="flex bg-frost-gray">
-      <Sidebar />
-      <main class="flex-1 p-4">
-        <slot />
+      <Sidebar userData={userData} />
+      <main class="flex-1 pt-16 px-72">
+        <Editor client:only="react" userData={userData}>
+          <div slot="fallback">Loading</div>
+        </Editor>
       </main>
     </div>
   </body>
