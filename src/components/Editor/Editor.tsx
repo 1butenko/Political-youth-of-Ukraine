@@ -1,9 +1,17 @@
-import React from "react";
-import "./editor.css";
-import { useEditor, EditorContent as TiptapEditorContent } from "@tiptap/react";
+import React, { useRef, useCallback, useMemo } from "react";
+import { useEditor, EditorContent as TiptapEditorContent, Editor } from "@tiptap/react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeading } from '@fortawesome/free-solid-svg-icons';
 import StarterKit from "@tiptap/starter-kit";
-import { Markdown } from "tiptap-markdown";
+import Underline from "@tiptap/extension-underline";
+import { Image } from "@tiptap/extension-image";
 import { slugify } from "transliteration";
+import "./editor.css";
+import { Markdown } from "tiptap-markdown";
+
+const extensions = [StarterKit, Image, Underline, Markdown];
+
+const initialContent = "# Hello **World**";
 
 interface User {
   fname: string;
@@ -15,159 +23,118 @@ interface EditorProps {
   userData: User;
 }
 
-const extensions = [StarterKit, Markdown];
-const initialContent = "# Hello **World**";
+const Toolbar = React.memo(({ editor }: { editor: Editor | null }) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-const Toolbar: React.FC<{ editor: any }> = ({ editor }) => {
+  const insertImage = useCallback((url: string) => {
+    if (!editor) return;
+
+    const doc = editor.state.doc;
+    let insertPos = 0;
+
+    doc.descendants((node, pos) => {
+      if (node.isBlock) {
+        insertPos = pos + node.nodeSize;
+        return false;
+      }
+      return true;
+    });
+
+    editor.chain().focus().insertContentAt(insertPos, {
+      type: "image",
+      attrs: { src: url },
+    }).run();
+  }, [editor]);
+
+  const onUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result === "string") {
+        insertImage(reader.result);
+      }
+    };
+    reader.readAsDataURL(file);
+    e.target.value = "";
+  }, [insertImage]);
+
   if (!editor) return null;
 
   return (
-    <div className="flex flex-wrap justify-center gap-2 p-2 mb-4 bg-light-ash rounded-2xl">
-      {/* <button
-        onClick={() => editor.chain().focus().toggleBold().run()}
-        className={`px-3 py-1 rounded ${
-          editor.isActive("bold") ? "bg-black text-white" : "bg-gray-200"
-        }`}
-      >
-        Bold
+    <div className="flex flex-wrap gap-2 p-2 mb-4 bg-light-ash rounded-2xl">
+      {[
+        { label: `${<FontAwesomeIcon icon={faHeading} />}`, action: () => editor.chain().focus().toggleHeading({ level: 1 }).run() },
+        { label: "H2", action: () => editor.chain().focus().toggleHeading({ level: 2 }).run() },
+        { label: "P", action: () => editor.chain().focus().setParagraph().run() },
+        { label: "B", action: () => editor.chain().focus().toggleBold().run() },
+        { label: "I", action: () => editor.chain().focus().toggleItalic().run() },
+        { label: "U", action: () => editor.chain().focus().toggleUnderline().run() },
+      ].map(({ label, action }) => (
+        <button key={label} onClick={action} className="px-2 py-1 font-semibold">
+          {label}
+        </button>
+      ))}
+
+      <button onClick={() => fileInputRef.current?.click()} className="px-2 py-1 font-semibold">
+        IMG
       </button>
-      <button
-        onClick={() => editor.chain().focus().toggleItalic().run()}
-        className={`px-3 py-1 rounded ${
-          editor.isActive("italic") ? "bg-black text-white" : "bg-gray-200"
-        }`}
-      >
-        Italic
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleBulletList().run()}
-        className={`px-3 py-1 rounded ${
-          editor.isActive("bulletList") ? "bg-black text-white" : "bg-gray-200"
-        }`}
-      >
-        Bullet List
-      </button>
-      <button
-        onClick={() => editor.chain().focus().setParagraph().run()}
-        className={`px-3 py-1 rounded ${
-          editor.isActive("paragraph") ? "bg-black text-white" : "bg-gray-200"
-        }`}
-      >
-        Paragraph
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-        className={`px-3 py-1 rounded ${
-          editor.isActive("heading", { level: 1 })
-            ? "bg-black text-white"
-            : "bg-gray-200"
-        }`}
-      >
-        H1
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-        className={`px-3 py-1 rounded ${
-          editor.isActive("codeBlock") ? "bg-black text-white" : "bg-gray-200"
-        }`}
-      >
-        Code
-      </button>
-      <button
-        onClick={() =>
-          editor.chain().focus().unsetAllMarks().clearNodes().run()
-        }
-        className="px-3 py-1 rounded bg-red-200 hover:bg-red-300"
-      >
-        Clear
-      </button> */}
-      <button
-        onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-        className="flex items-center gap-1"
-      >
-        Розмір
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
-          className="w-4 h-4"
-          fill="currentColor"
-        >
-          <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
-        </svg>
-      </button>
+      <input ref={fileInputRef} type="file" accept="image/*" onChange={onUpload} className="hidden" />
     </div>
   );
-};
+});
 
-const EditorContent: React.FC<{ editor: any; userData: User }> = ({
-  editor,
-  userData,
-}) => {
-  const handleGetMarkdown = async () => {
+const EditorContent = ({ editor, userData }: { editor: Editor | null; userData: User }) => {
+  const handleSave = useCallback(async () => {
     if (!editor) return;
 
-    const md = editor.storage.markdown.getMarkdown();
+    const markdownExtension = await import("tiptap-markdown");
+    const markdown = editor?.storage.markdown?.getMarkdown?.();
     const json = editor.getJSON();
 
     const firstNode = json.content?.[0];
-    let title = "Untitled";
-
-    if (
-      firstNode &&
-      (firstNode.type === "heading" || firstNode.type === "paragraph")
-    ) {
-      title =
-        firstNode.content
-          ?.map((c: any) => c.text)
-          .join("")
-          ?.trim() || "Untitled";
-    }
+    const title = firstNode?.content?.map((c: any) => c.text).join("")?.trim() || "Untitled";
 
     const payload = {
       title,
       slug: slugify(title),
-      markdown: md,
+      markdown,
       publisher: `${userData.fname} ${userData.sname}`,
       publishDate: Date.now(),
     };
 
-    const res = await fetch("api/save/article", {
+    const res = await fetch("/api/save/article", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
 
     if (!res.ok) {
-      const err = await res.json();
-      console.error("Server error:", err);
+      alert("Save failed.");
+    } else {
+      alert("Saved.");
     }
-
-    alert("Saved!");
-  };
+  }, [editor, userData]);
 
   return (
     <div className="space-y-4">
       <Toolbar editor={editor} />
-
-      <div className="editor-content">
+      <div className="editor-content" role="textbox">
         <TiptapEditorContent editor={editor} />
       </div>
-
       <button
-        onClick={handleGetMarkdown}
-        className="bg-blue-500 text-white px-4 py-2 rounded"
+        onClick={handleSave}
+        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
       >
-        Get Markdown
+        Save
       </button>
     </div>
   );
 };
 
 const MarkdownEditor: React.FC<EditorProps> = ({ userData }) => {
-  const editor = useEditor({
-    extensions,
-    content: initialContent,
-  });
+  const editor = useEditor({ extensions, content: initialContent });
 
   return <EditorContent editor={editor} userData={userData} />;
 };

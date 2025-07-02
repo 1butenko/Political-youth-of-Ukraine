@@ -47,10 +47,10 @@ try {
     <meta name="generator" content={Astro.generator} />
     <title>ПМУ | Паблішер центр</title>
   </head>
-  <body>
-    <div class="flex bg-frost-gray">
+  <body class="bg-frost-gray">
+    <div class="flex">
       <Sidebar userData={userData} />
-      <main class="flex-1 pt-16 px-72">
+      <main class="flex-1 pt-16 ml-72 px-72">
         <Editor client:only="react" userData={userData}>
           <div slot="fallback">Loading</div>
         </Editor>

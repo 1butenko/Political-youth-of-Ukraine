@@ -10,7 +10,7 @@ import Logo from "../../assets/logo.svg";
 const { userData } = Astro.props
 ---
 
-<aside class="w-72 min-h-screen bg-light-ash px-4 pt-8 flex flex-col justify-between border-r border-line-gray">
+<aside class="w-72 h-screen fixed top-0 left-0 bg-light-ash px-4 pt-8 flex flex-col justify-between border-r border-line-gray z-50">
   <div>
     <div class="flex items-center justify-between mb-4">
       <div class="flex items-center gap-4 cursor-pointer">
@@ -35,7 +35,7 @@ const { userData } = Astro.props
     <hr class="border-t border-line-gray mb-4" />
 
     <div>
-      <h2 class="text-xs font-fixel font-light text-dusty-teal mb-4">Мої статті</h2>
+      <div class="text-xs font-fixel font-light text-dusty-teal mb-4">Мої статті</div>
       <SidebarArticle title="Новий законопроєкт" />
     </div>
   </div>
